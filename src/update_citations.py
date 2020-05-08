@@ -11,6 +11,7 @@ import json
 import math
 from sodapy import Socrata as sc
 
+print("Succesfully import librarys, beginging FTP session")
 # tell pysftp that it's ok if the sftp site doesn't have a hostkey
 cnopts = pysftp.CnOpts()
 cnopts.hostkeys = None
