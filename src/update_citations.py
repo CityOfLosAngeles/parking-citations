@@ -10,15 +10,18 @@ import pandas as pd
 import json
 import math
 from sodapy import Socrata as sc
-import credentials as cd
 
 # tell pysftp that it's ok if the sftp site doesn't have a hostkey
 cnopts = pysftp.CnOpts()
 cnopts.hostkeys = None
 
 # connect to sftp
-srv = pysftp.Connection(host=cd.sftp_host, username=cd.sftp_username,
-password=cd.sftp_password, cnopts = cnopts)
+
+host = '138.69.165.148'
+username = os.environ.get('FTP_PARKING_USERNAME')
+password = os.environ.get('FTP_PARKING_PASSWORD')
+srv = pysftp.Connection(host=host, username=username,
+password=password, cnopts = cnopts)
 
 # get the file listing
 all_files = srv.listdir()
@@ -98,8 +101,9 @@ json_data = json.loads(json_str)
 
 ### Upload to socrata
 # establish connection to api
-client = sc(domain = "data.lacity.org", app_token = cd.socrata_app_token, 
-	username = cd.socrata_username, password = cd.socrata_password)
+
+client = sc(domain = "data.lacity.org", app_token = "K0lgodxtUCxf7AH5Q3qegOwCJ", 
+	username = os.environ.get('SOCRATA_USERNAME'), password = os.environ.get('SOCRATA_PASSWORD'))
 
 # upsert in small batches to avoid timeout
 batch_size = 1000
