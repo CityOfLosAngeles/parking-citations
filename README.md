@@ -15,6 +15,8 @@ Attached the environment variables in a `.env`. specifically
 
 This might fail locally, since you are not on whitelist IP for the conduent firewall. See .env.sample 
 
+Then run `docker build .` and `docker run`
+
 ## To Run on Civis. 
 
 Attach the correct credentials and run `src/update-citations.py`
